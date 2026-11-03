@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home · Credit Scoring DSS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+  
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script>
+    // Keep in sync with tailwind.config.js (used for the offline build)
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { 50:'#eef6f3', 100:'#d5e9e2', 600:'#23705f', 700:'#1d5c50', 800:'#174a41', 900:'#123a33' },
+            ink: '#18221f', paper: '#f3f5f2',
+            low: '#2f7a46', mid: '#a8690f', high: '#b23a2e'
+          },
+          fontFamily: {
+            display: ['Archivo', 'Helvetica Neue', 'Arial', 'sans-serif'],
+            sans: ['Public Sans', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+            mono: ['JetBrains Mono', 'ui-monospace', 'Menlo', 'Consolas', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  
+  <link rel="stylesheet" href="style.css">
+  <script src="auth_shim.js"></script>
+  
+</head>
+<body class="bg-paper text-ink font-sans antialiased min-h-screen flex flex-col">
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+    <a href="home.html" class="flex items-center gap-3">
+      <span class="grid place-items-center w-9 h-9 rounded-md bg-brand-700 text-white font-display font-extrabold">CS</span>
+      <span class="leading-tight">
+        <span class="block font-display font-bold">Credit Scoring DSS</span>
+        <span class="block text-xs text-slate-500">Installment financing</span>
+      </span>
+    </a>
+
+    
+    <button id="nav-toggle" class="sm:hidden p-2 rounded-md text-slate-600 hover:bg-slate-100"
+            aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+
+    <div id="nav-links" class="hidden sm:flex absolute sm:static top-16 inset-x-0 bg-white sm:bg-transparent border-b sm:border-0 border-slate-200 flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 p-3 sm:p-0">
+      <ul class="flex flex-col sm:flex-row gap-1">
+        
+        <li>
+          <a href="home.html"
+             class="nav-link nav-link-active">Home</a>
+        </li>
+        
+        <li>
+          <a href="predict.html"
+             class="nav-link ">Assess applicant</a>
+        </li>
+        
+        
+        <li>
+          <a href="users.html" class="nav-link flex items-center gap-2 ">
+            Users<span class="badge" title="1 account request(s) waiting">1</span>
+          </a>
+        </li>
+        
+      </ul>
+      <div class="flex items-center gap-3 border-t sm:border-t-0 sm:border-l border-slate-200 pt-3 sm:pt-0 sm:pl-4">
+        <a href="account.html" class="account-link leading-tight text-sm " title="My account: change name, username or password">
+          <span class="block font-semibold">Administrator</span>
+          <span class="block text-xs text-slate-500">Administrator · My account</span>
+        </a>
+        <form method="post" action="/logout">
+          <input type="hidden" name="csrf_token" value="EPqKHcrG2hKbJhFA84jCTZgt2r_Y3ngh">
+          <button type="submit" class="btn-ghost btn-sm">Sign out</button>
+        </form>
+      </div>
+    </div>
+    
+  </nav>
+</header>
+<div style="background:#123a33;color:#d5e9e2;font-size:13px;text-align:center;padding:6px 16px">Preview of the Flask app. Changes here are not saved; the real system uses MySQL.</div>
+
+<script>
+  (function () {
+    var btn = document.getElementById('nav-toggle'), menu = document.getElementById('nav-links');
+    btn.addEventListener('click', function () {
+      var open = menu.classList.toggle('hidden') === false;
+      menu.classList.toggle('flex', open);
+      btn.setAttribute('aria-expanded', String(open));
+    });
+  })();
+</script>
+
+  
+  <div class="default-pw-bar" role="alert">
+    <span>You are using the default administrator password. Change it to keep the system secure.</span>
+    <a href="account.html" class="default-pw-link">Change password</a>
+  </div>
+  
+
+  <main class="flex-1 w-full max-w-6xl mx-auto px-4 sm:px-6 py-8">
+    
+    
+    
+<section class="grid lg:grid-cols-[1.3fr_1fr] gap-10 items-center py-6">
+  <div>
+    <p class="eyebrow">Credit Scoring Decision Support System</p>
+    <h1 class="font-display font-extrabold text-4xl sm:text-5xl leading-tight mt-2 text-balance">
+      Decide on installment loan applications faster and more consistently.
+    </h1>
+    <p class="mt-4 text-lg text-slate-600 max-w-xl">
+      Enter an applicant's details and the loan they are asking for. The system checks them against
+      what it learned from past financing records and tells you how risky the applicant is, what it
+      recommends, and why.
+    </p>
+    <div class="flex flex-wrap gap-3 mt-6">
+      <a href="predict.html" class="btn-primary">Assess an applicant</a>
+    </div>
+  </div>
+
+  <div class="card p-6">
+    <p class="eyebrow">What the result means</p>
+    <ul class="mt-4 grid gap-4">
+      <li class="flex items-start justify-between gap-4">
+        <span><span class="pill pill-low">Low risk</span>
+          <span class="block text-sm text-slate-600 mt-1">Likely to pay on time.</span></span>
+        <span class="font-semibold text-low">Approve</span>
+      </li>
+      <li class="flex items-start justify-between gap-4">
+        <span><span class="pill pill-medium">Medium risk</span>
+          <span class="block text-sm text-slate-600 mt-1">Some warning signs. Look closer.</span></span>
+        <span class="font-semibold text-mid">Review</span>
+      </li>
+      <li class="flex items-start justify-between gap-4">
+        <span><span class="pill pill-high">High risk</span>
+          <span class="block text-sm text-slate-600 mt-1">Similar to past borrowers who defaulted.</span></span>
+        <span class="font-semibold text-high">Reject</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="mt-12">
+  <h2 class="section-title">How to use it</h2>
+  <ol class="grid sm:grid-cols-3 gap-4 mt-5">
+    
+    
+    <li class="card p-5">
+      <span class="step-num">1</span>
+      <h3 class="font-display font-bold mt-3">Enter the application</h3>
+      <p class="text-sm text-slate-600 mt-1">Fill in the applicant’s personal details, income, existing debt, the loan amount and term, and their past repayment record.</p>
+    </li>
+    
+    <li class="card p-5">
+      <span class="step-num">2</span>
+      <h3 class="font-display font-bold mt-3">Read the recommendation</h3>
+      <p class="text-sm text-slate-600 mt-1">The system shows the risk level, a credit score out of 100, and the main reasons that raised or lowered the risk.</p>
+    </li>
+    
+    <li class="card p-5">
+      <span class="step-num">3</span>
+      <h3 class="font-display font-bold mt-3">Make the decision</h3>
+      <p class="text-sm text-slate-600 mt-1">Use the recommendation together with your own judgment. Every assessment is saved so it can be reviewed later.</p>
+    </li>
+    
+  </ol>
+</section>
+
+<section class="mt-12 grid lg:grid-cols-2 gap-8">
+  <div>
+    <h2 class="section-title">What the system looks at</h2>
+    <ul class="grid sm:grid-cols-2 gap-3 mt-5">
+      
+      <li class="look-item">
+        <p class="font-semibold">Applicant</p>
+        <p class="text-sm text-slate-600">Age, marital status and occupation</p>
+      </li>
+      
+      <li class="look-item">
+        <p class="font-semibold">Ability to pay</p>
+        <p class="text-sm text-slate-600">Monthly income, existing debt, and how much of the income the installment takes</p>
+      </li>
+      
+      <li class="look-item">
+        <p class="font-semibold">The loan</p>
+        <p class="text-sm text-slate-600">Amount, term, interest rate and how interest is computed</p>
+      </li>
+      
+      <li class="look-item">
+        <p class="font-semibold">Payment history</p>
+        <p class="text-sm text-slate-600">Missed payments and late payment penalties on past loans</p>
+      </li>
+      
+    </ul>
+  </div>
+  <div class="card p-6 self-start">
+    <h2 class="section-title">Good to know</h2>
+    <ul class="grid gap-3 mt-4 text-sm text-slate-600 list-disc pl-5">
+      <li>The system supports the loan officer. The final decision is always yours.</li>
+      <li>Results are only as good as the information entered, so check the details before assessing.</li>
+      <li>The same applicant details always give the same result, so every applicant is judged the same way.</li>
+    </ul>
+  </div>
+</section>
+
+  </main>
+
+  <footer class="border-t border-slate-200 bg-white mt-12">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 grid gap-4 sm:grid-cols-2 text-sm text-slate-600">
+    <div>
+      <p class="font-display font-bold text-ink">Data Mining–Based Credit Scoring Decision Support System for Installment-Based Financing</p>
+      <p class="mt-1">Computer Science Department · Quirino State University · Cabarroguis, Quirino</p>
+    </div>
+    <div class="sm:text-right">
+      <p>Danher Gene Axl P. Espinosoa · Darlene Faith P. Soberano · Jerome M. Cacayan</p>
+      <p class="mt-1">Adviser: Reynold C. Rustia, MIT · AY 2025–2026</p>
+    </div>
+  </div>
+</footer>
+  
+</body>
+</html>
